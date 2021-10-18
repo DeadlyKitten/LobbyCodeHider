@@ -2,7 +2,7 @@
 
 This simple mod hides the lobby code for private lobbies. It also adds the ability to show it by pressing a button, as well as copy it to the clipboard on Windows.
 
-![demonstration](https://github.com/DeadlyKitten/LobbyCodeHider/blob/master/HideLobbyCode/External/lobbycodehider.gif)
+![demonstration](https://github.com/DeadlyKitten/LobbyCodeHider/blob/master/HideLobbyCode/External/lobbycodehider.gif?raw=true)
 
 ## Installation
 
