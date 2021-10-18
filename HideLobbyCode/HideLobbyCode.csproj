@@ -4,15 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>LobbyCodeHider</AssemblyName>
     <LangVersion>8.0</LangVersion>
+    <Version>1.0.1</Version>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Utilities\LICENSE.TextCopy" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Utilities\LICENSE.TextCopy" />
-  </ItemGroup>
 
   <ItemGroup>
     <Reference Include="0Harmony">
