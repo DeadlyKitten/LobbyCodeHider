@@ -1,6 +1,6 @@
 {
   "name": "Lobby_Code_Hider",
-  "version_number": "1.0.1",
+  "version_number": "1.1.0",
   "website_url": "https://github.com/deadlykitten/LobbyCodeHider",
   "description": "A small mod that hides the lobby code in private lobbies and allows you to copy it to the clipboard.",
   "dependencies": [
