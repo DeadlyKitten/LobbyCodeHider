@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using HarmonyLib;
 using Nick;
-using HarmonyLib;
-using TMPro;
-using System.Reflection.Emit;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
+using TMPro;
 
 namespace HideLobbyCode.Patches
 {
@@ -14,14 +12,14 @@ namespace HideLobbyCode.Patches
     {
         static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> codes)
         {
-            var instructions = codes.ToList();
+            var instructions = codes.ToList(); // use list to access elements by index
 
             var currentInstruction = instructions.FindIndex(x => x.opcode == OpCodes.Callvirt);
 
             var getText = typeof(TMP_InputField).GetProperty("text").GetGetMethod();
 
-            instructions[++currentInstruction].operand = getText;
-            instructions.RemoveAt(++currentInstruction);
+            instructions[++currentInstruction].operand = getText; // use the correct method
+            instructions.RemoveAt(++currentInstruction); // don't need this anymore
 
             return instructions;
         }
