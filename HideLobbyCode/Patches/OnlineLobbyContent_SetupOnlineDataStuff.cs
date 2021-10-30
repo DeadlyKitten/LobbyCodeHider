@@ -12,6 +12,7 @@ namespace HideLobbyCode.Patches
 
             Plugin.lobbyCode = data.lobby.LobbySettings.pass;
             Plugin.lobbyIDText = ___lobbyID;
+            OnlineMenuContent.GetData(___sharedState).client.CurrentRegion(out Plugin.region);
         }
     }
 }
