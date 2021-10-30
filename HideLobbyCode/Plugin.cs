@@ -3,6 +3,7 @@ using BepInEx.Logging;
 using HarmonyLib;
 using HideLobbyCode.Utilities;
 using Nick;
+using SlapNetwork;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -18,6 +19,7 @@ namespace HideLobbyCode
 
         internal static MenuTextContent lobbyIDText;
         internal static string lobbyCode;
+        internal static RegionData region;
 
         void Awake()
         {
@@ -42,7 +44,19 @@ namespace HideLobbyCode
 
             if ((bool)MenuSystem.MainInput?.IsButtonDown(MenuAction.ActionButton.Opt2) && hiddenLastFrame)
             {
-                lobbyIDText.SetString($"{Localization.online_lobby_id}: {lobbyCode}");
+                var regionNameSplit = region.name.Split(':');
+                string regionNameLocalized;
+
+                if (string.IsNullOrWhiteSpace(region.token))
+                    regionNameLocalized = Localization.GetText("online_region_any");
+                else if (string.IsNullOrWhiteSpace(region.name))
+                    regionNameLocalized = Localization.GetText(region.token);
+                else if (!(regionNameSplit.Length == 1) && !(regionNameSplit[0] == "canada"))
+                    regionNameLocalized = string.Format(Localization.GetText("online_region_" + regionNameSplit[1]), Localization.GetText("online_region_" + regionNameSplit[0]));
+                else
+                    regionNameLocalized = Localization.GetText("online_region_" + regionNameSplit[0]);
+
+                lobbyIDText.SetString($"{Localization.online_lobby_id}: {lobbyCode}\n{Localization.online_region}: {regionNameLocalized}");
                 hiddenLastFrame = false;
             }
             else if (!(bool)MenuSystem.MainInput?.IsButtonDown(MenuAction.ActionButton.Opt2) && !hiddenLastFrame)

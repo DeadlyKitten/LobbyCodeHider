@@ -4,6 +4,6 @@
     {
         public const string PLUGIN_GUID = "com.steven.nasb.hidelobbycode";
         public const string PLUGIN_NAME = "Lobby Code Hider";
-        public const string PLUGIN_VERSION = "1.1.0";
+        public const string PLUGIN_VERSION = "1.2.0";
     }
 }
