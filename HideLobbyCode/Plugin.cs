@@ -7,6 +7,7 @@ using SlapNetwork;
 using System;
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
 namespace HideLobbyCode
 {
@@ -14,12 +15,12 @@ namespace HideLobbyCode
     public class Plugin : BaseUnityPlugin
     {
         private static Plugin Instance;
-        bool hiddenLastFrame = false;
         Coroutine routine;
 
-        internal static MenuTextContent lobbyIDText;
+        internal static TextMeshProUGUI lobbyIDText;
         internal static string lobbyCode;
         internal static RegionData region;
+        internal static bool showCopyText;
 
         void Awake()
         {
@@ -36,37 +37,10 @@ namespace HideLobbyCode
 
         void Update()
         {
-            if (!lobbyIDText)
-            {
-                hiddenLastFrame = false;
-                return;
-            }
-
-            if ((bool)MenuSystem.MainInput?.IsButtonDown(MenuAction.ActionButton.Opt2) && hiddenLastFrame)
-            {
-                var regionNameSplit = region.name.Split(':');
-                string regionNameLocalized;
-
-                if (string.IsNullOrWhiteSpace(region.token))
-                    regionNameLocalized = Localization.GetText("online_region_any");
-                else if (string.IsNullOrWhiteSpace(region.name))
-                    regionNameLocalized = Localization.GetText(region.token);
-                else if (!(regionNameSplit.Length == 1) && !(regionNameSplit[0] == "canada"))
-                    regionNameLocalized = string.Format(Localization.GetText("online_region_" + regionNameSplit[1]), Localization.GetText("online_region_" + regionNameSplit[0]));
-                else
-                    regionNameLocalized = Localization.GetText("online_region_" + regionNameSplit[0]);
-
-                lobbyIDText.SetString($"{Localization.online_lobby_id}: {lobbyCode}\n{Localization.online_region}: {regionNameLocalized}");
-                hiddenLastFrame = false;
-            }
-            else if (!(bool)MenuSystem.MainInput?.IsButtonDown(MenuAction.ActionButton.Opt2) && !hiddenLastFrame)
-            {
-                lobbyIDText.SetString("Left Bumper: Display Code\nRight Bumper: Copy Code");
-                hiddenLastFrame = true;
-            }
-
-            if ((bool)MenuSystem.MainInput?.IsButtonDown(MenuAction.ActionButton.Opt3))
+            if ((bool)MenuSystem.MainInput?.IsButtonDown(MenuAction.ActionButton.Opt2))
                 TryCopyToClipboard();
+            if ((bool)MenuSystem.MainInput?.IsButtonDown(MenuAction.ActionButton.Opt3))
+                showCopyText = false;
         }
 
         private void TryCopyToClipboard()
@@ -74,11 +48,13 @@ namespace HideLobbyCode
             try
             {
                 WindowsClipboard.SetText(lobbyCode);
-                lobbyIDText.SetString("Copied to clipboard!");
+
+                showCopyText = true;
+                lobbyIDText.text = "Copied to clipboard!";
             }
             catch (Exception e)
             {
-                lobbyIDText.SetString("Failed to copy code to clipboard!\nSee log output for details");
+                lobbyIDText.text = "Failed to copy code to clipboard!\nSee log output for details";
                 LogError($"Failed to copy lobby code to clipboard!");
                 LogError($"{e.Message}");
                 LogError($"{e.StackTrace}");
@@ -93,8 +69,7 @@ namespace HideLobbyCode
         IEnumerator ResetAfterDelay(float delay)
         {
             yield return new WaitForSeconds(delay);
-
-            hiddenLastFrame = false;
+            showCopyText = false;
         }
 
         #region logging
