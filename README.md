@@ -1,8 +1,9 @@
 # Lobby Code Hider
 
-This simple mod hides the lobby code for private lobbies. It also adds the ability to show it by pressing a button, as well as copy it to the clipboard on Windows.
+This simple mod allows you to copy and paste lobby codes in-game. Simply press the button shown on screen!
 
-![demonstration](https://github.com/DeadlyKitten/LobbyCodeHider/blob/master/HideLobbyCode/External/lobbycodehider.gif?raw=true)
+![demonstration](https://cdn.discordapp.com/attachments/258077349524799498/906782232851648542/unknown.png)
+![demonstration](https://cdn.discordapp.com/attachments/258077349524799498/906781976038613052/unknown.png)
 
 ## Installation
 
@@ -19,7 +20,7 @@ Then, go to the [latest release of this mod](https://github.com/DeadlyKitten/Lob
 
 No configuration necessary!
 
-Lobby code is hidden by default. On most controllers, press the left bumper to show the lobby code, and the right bumper to copy it to the clipboard.
+The game now hides lobby codes by default. On most controllers, press the left bumper to copy/paste.
 
 #### Notes
 - Gamecube controllers don't have bumpers, but you can use the triggers instead
