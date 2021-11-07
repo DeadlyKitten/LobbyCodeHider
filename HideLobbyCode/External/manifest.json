@@ -1,9 +1,10 @@
 {
-  "name": "Lobby_Code_Hider",
-  "version_number": "1.2.0",
+  "name": "Lobby_Code_Enhancements",
+  "version_number": "2.0.0",
   "website_url": "https://github.com/deadlykitten/LobbyCodeHider",
-  "description": "A small mod that hides the lobby code in private lobbies and allows you to copy it to the clipboard.",
+  "description": "A small mod that allows you to copy and paste lobby codes.",
   "dependencies": [
-    "BepInEx-BepInExPack_NASB-5.4.17"
+    "BepInEx-BepInExPack_NASB-5.4.17",
+    "Steven-Slime_Modding_Utilities-1.0.0"
   ]
 }

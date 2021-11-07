@@ -4,10 +4,12 @@ using HarmonyLib;
 using HideLobbyCode.Utilities;
 using Nick;
 using SlapNetwork;
+using SMU.Reflection;
 using System;
 using System.Collections;
-using UnityEngine;
+using System.Linq;
 using TMPro;
+using UnityEngine;
 
 namespace HideLobbyCode
 {
@@ -15,12 +17,13 @@ namespace HideLobbyCode
     public class Plugin : BaseUnityPlugin
     {
         private static Plugin Instance;
-        Coroutine routine;
+        private Coroutine routine;
 
         internal static TextMeshProUGUI lobbyIDText;
         internal static string lobbyCode;
         internal static RegionData region;
         internal static bool showCopyText;
+        internal static bool searchBoxOpen;
 
         void Awake()
         {
@@ -38,8 +41,16 @@ namespace HideLobbyCode
         void Update()
         {
             if ((bool)MenuSystem.MainInput?.IsButtonDown(MenuAction.ActionButton.Opt2))
-                TryCopyToClipboard();
-            if ((bool)MenuSystem.MainInput?.IsButtonDown(MenuAction.ActionButton.Opt3))
+            {
+                if (searchBoxOpen)
+                {
+                    var searchBox = Resources.FindObjectsOfTypeAll<OnlineSearchSpecificLobbyContent>().Where(x => x.isActiveAndEnabled).FirstOrDefault();
+                    var textField = searchBox.GetField<OnlineSearchSpecificLobbyContent, MenuTextInput>("_input");
+                    textField.Input.text = WindowsClipboard.GetText();
+                }
+                else if (lobbyIDText) TryCopyToClipboard();
+            }
+            if (showCopyText && (bool)MenuSystem.MainInput?.IsButtonDown(MenuAction.ActionButton.Opt3))
                 showCopyText = false;
         }
 
